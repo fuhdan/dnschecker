@@ -87,9 +87,11 @@ jobs:
           IMAGE_NAME=${{ secrets.DOCKERHUB_USERNAME }}/dnschecker
           TAG=${GITHUB_REF_NAME#refs/tags/}  # Extract tag name like v1.0.0
           docker build -t $IMAGE_NAME:$TAG .
+          docker build -t $IMAGE_NAME:latest .
 
       - name: 🚀 Push Docker image
         run: |
           IMAGE_NAME=${{ secrets.DOCKERHUB_USERNAME }}/dnschecker
           TAG=${GITHUB_REF_NAME#refs/tags/}
           docker push $IMAGE_NAME:$TAG
+          docker push $IMAGE_NAME:latest
