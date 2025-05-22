@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "dnschecker"
-version = "0.1.1"
+version = "0.1.2"
 description = "A powerful Python CLI tool for querying and analyzing DNS records across multiple domains with advanced search, custom DNS servers, and color-coded output for network troubleshooting and auditing."
 readme = "README.md"
 requires-python = ">=3.7"
