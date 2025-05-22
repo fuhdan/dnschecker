@@ -71,4 +71,4 @@ jobs:
 
       - name: 🚀 Publish to PyPI
         if: github.event_name == 'release'
-        uses: pypa/gh-action-pypi-publish@v1.8.11
+        uses: pypa/gh-action-pypi-publish@v1.12.4
