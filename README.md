@@ -1,4 +1,4 @@
-# 🔍 dnschecker
+# 🔍 dns-checker
 
 A powerful and flexible Python CLI tool for querying and inspecting DNS records across multiple domains, supporting custom DNS servers, advanced search, and color highlighting.
 
@@ -6,7 +6,7 @@ A powerful and flexible Python CLI tool for querying and inspecting DNS records 
 
 ## 🚀 Overview
 
-**dnschecker** lets you:
+**dns-checker** lets you:
 
 - Query DNS records (A, MX, TXT, SPF, CNAME, etc.) for one or more domains
 - Use custom DNS servers for queries
@@ -46,7 +46,7 @@ Run the tool from the command line:
 ```
 pip install dnschecker
 ```
-dnschecker --domains example.com example.org --type MX
+dns-checker --domains example.com example.org --type MX
 ```
 
 **Main options:**
@@ -62,22 +62,22 @@ dnschecker --domains example.com example.org --type MX
 
 Query A records for multiple domains using default DNS servers:
 ```
-dnschecker --domains example.com example.org
+dns-checker --domains example.com example.org
 ```
 
 Query MX records using Google DNS:
 ```
-dnschecker --domains example.com --type MX --dns-servers 8.8.8.8 8.8.4.4
+dns-checker --domains example.com --type MX --dns-servers 8.8.8.8 8.8.4.4
 ```
 
 Search for a specific value in TXT records:
 ```
-dnschecker --domains example.com --type TXT --find "google-site-verification"
+dns-checker --domains example.com --type TXT --find "google-site-verification"
 ```
 
 Find a particular IPv4 address in SPF records:
 ```
-dnschecker --domains example.com --type SPF --find-ipv4 192.0.2.1
+dns-checker --domains example.com --type SPF --find-ipv4 192.0.2.1
 ```
 
 ---
