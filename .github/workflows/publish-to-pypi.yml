@@ -1,0 +1,74 @@
+name: 📦 Publish to PyPI
+
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - 'v*.*.*'
+  release:
+    types: [published]
+
+permissions:
+  contents: read
+  id-token: write  # 🔑 Required for Trusted Publishing
+
+jobs:
+  build-and-publish:
+    name: Build and Publish to PyPI
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 🧾 Checkout code
+        uses: actions/checkout@v4
+
+      - name: 🐍 Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: 📦 Install build dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install build twine
+
+      - name: 📦 Install package dependencies
+        run: |
+          pip install dnspython>=2.4.2
+
+      - name: 🔍 Verify package structure
+        run: |
+          echo "Checking package structure..."
+          ls -la
+          ls -la dnschecker/
+          python -c "import dnschecker; print('Package imports successfully')"
+
+      - name: 🏗️ Build package
+        run: |
+          python -m build --verbose
+
+      - name: 🔍 Inspect built package
+        run: |
+          echo "Contents of dist directory:"
+          ls -la dist/
+          echo "Inspecting wheel contents:"
+          python -m zipfile -l dist/*.whl
+          echo "Inspecting wheel metadata:"
+          python -c "
+          import zipfile
+          import glob
+          whl_file = glob.glob('dist/*.whl')[0]
+          with zipfile.ZipFile(whl_file, 'r') as z:
+              for name in z.namelist():
+                  if 'METADATA' in name:
+                      print(f'=== {name} ===')
+                      print(z.read(name).decode('utf-8'))
+          "
+
+      - name: 🧪 Check package metadata
+        run: |
+          python -m twine check dist/*
+
+      - name: 🚀 Publish to PyPI
+        if: github.event_name == 'release'
+        uses: pypa/gh-action-pypi-publish@v1.8.11
